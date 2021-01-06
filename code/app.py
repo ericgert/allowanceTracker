@@ -8,6 +8,8 @@ def app_index():
 
 @app.route('/current_values')
 def current_values():
+
+
     cVal = 3.00
     aVal = 2.00
     mVal = 1.50
