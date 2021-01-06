@@ -25,7 +25,7 @@ def current_values():
             raise Exception("Name not found")
 
     
-    return render_template('currentValues.html', WEEK_END_DATE=cur_date MICAH=mVal, CAMERON=cVal, ALEX=aVal)
+    return render_template('currentValues.html', WEEK_END_DATE=cur_date, MICAH=mVal, CAMERON=cVal, ALEX=aVal)
     
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
