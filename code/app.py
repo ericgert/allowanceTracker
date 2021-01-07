@@ -26,6 +26,23 @@ def current_values():
 
     
     return render_template('currentValues.html', WEEK_END_DATE=cur_date, MICAH=mVal, CAMERON=cVal, ALEX=aVal)
-    
+
+@app.route('/modifyValues', methods=['GET','POST'])
+def modifyValues():
+    if request.method == 'POST':
+        child = request.values.get('childSelect')
+        amount = request.values.get('modifyAmount')
+        message_text = 'You have successfully modified the allowance for {} by {}'.format(child, amount)
+        return redirect(url_for('message', message=message_text))
+
+
+    cur_date = allow_utils.get_current_weekend()
+    return render_template('currentValues.html', WEEK_END_DATE=cur_date)
+
+@app.route('/message')
+def message(message)
+    message=message
+    return render_template('message.html', MESSAGE_TEXT=message)
+
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
