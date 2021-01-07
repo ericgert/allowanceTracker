@@ -37,7 +37,7 @@ def modifyValues():
 
 
     cur_date = allow_utils.get_current_weekend()
-    return render_template('modifyValue.html', WEEK_END_DATE=cur_date)
+    return render_template('modifyValues.html', WEEK_END_DATE=cur_date)
 
 @app.route('/message')
 def message(message):
