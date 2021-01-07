@@ -32,16 +32,16 @@ def modifyValues():
     if request.method == 'POST':
         child = request.values.get('childSelect')
         amount = request.values.get('modifyAmount')
-        session['message_text'] = 'You have successfully modified the allowance for {} by {}'.format(child, amount)
-        return redirect(url_for('message'))
+        message = 'You have successfully modified the allowance for {} by {}'.format(child, amount)
+        return redirect(url_for('message', message=message))
 
 
     cur_date = allow_utils.get_current_weekend()
     return render_template('modifyValues.html', WEEK_END_DATE=cur_date)
 
 @app.route('/message')
-def message(message):
-    message=session['message_text']
+def message():
+    message = request.args['message']
     return render_template('message.html', MESSAGE_TEXT=message)
 
 if __name__ == '__main__':
