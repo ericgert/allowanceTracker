@@ -40,7 +40,7 @@ def modifyValues():
     return render_template('currentValues.html', WEEK_END_DATE=cur_date)
 
 @app.route('/message')
-def message(message)
+def message(message):
     message=message
     return render_template('message.html', MESSAGE_TEXT=message)
 
