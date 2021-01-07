@@ -1,4 +1,5 @@
 import allow_conn as con
+import datetime
 
 def get_current_weekend():
     current_date =  con.execute_query("Select week_end_date from weekends where current_record_ind = 'Y';")
@@ -18,4 +19,5 @@ def get_current_values():
     """
     rows = con.execute_query(query_sql)
     return rows
+
 
