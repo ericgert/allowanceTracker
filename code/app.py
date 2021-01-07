@@ -1,6 +1,6 @@
 from flask import Flask, request, url_for, redirect, render_template, session
 import allow_utils
-
+import allow_conn
 
 app = Flask(__name__)
 
@@ -30,9 +30,22 @@ def current_values():
 @app.route('/modifyValues', methods=['GET','POST'])
 def modifyValues():
     if request.method == 'POST':
-        child = request.values.get('childSelect')
+        #get values from the form
+        child = "'"+request.values.get('childSelect')+"'"
         amount = request.values.get('modifyAmount')
-        message = 'You have successfully modified the allowance for {} by ${}'.format(child, amount)
+        reason = "'"+request.values.get('modifyReason')+"'"
+        #grab the current date
+        cur_date = "'"+allow_utils.get_current_weekend()+"'"
+        #prepare the insert statement to update the amount
+        sql = """
+        insert into amount_details values({}, {}, {}, {})
+        """.format(cur_date, child, amount, reason)
+        #execute the statement and check teh results
+        result = allow_conn.execute_statement(sql)
+        if result['code'] == 0:
+            message = 'You have successfully modified the allowance for {} by ${}'.format(child, amount)
+        else:
+            message = result['message']
         return redirect(url_for('message', message=message))
 
 

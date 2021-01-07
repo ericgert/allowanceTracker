@@ -66,11 +66,11 @@ def execute_statement(sql):
         close_cursor(cursor, allow_conn)
 
         #return rows
-        return "statement successful"
+        return {'code':0}
 
     except Exception as e:
-        print("Failed to execute statement. The exception was:")
-        print(e)
+        message = "Failed to execute statement. The exception was: \n{}".format(e)
+        return {'code': 1, 'message': message}
 
 
 def execute_insert(table, data):

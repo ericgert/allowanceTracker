@@ -8,7 +8,7 @@ def get_current_weekend():
 
 def get_current_values():
     query_sql = """
-    SELECT week_end_date, child_name, amount
+    SELECT week_end_date, child_name, current_amount
     FROM allowance_details
     WHERE week_end_date = (
 	    select week_end_date 
