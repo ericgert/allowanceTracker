@@ -15,10 +15,14 @@
 </head>
 <body>
   <div class="content">
-    <h1>Allowance Tracker</h1>
-    <p><a href="{{ url_for('current_values') }}">Current Values</a></p>
-    <p><a href="{{ url_for('modifyValues') }}">Update Allowance Amount</a></p>
-    <p><a href="{{ url_for('finalizeWeek') }}">Finalize Week</a></p>
+    <h1>Allowance Tracker - Finalize Allowance for week ending {{ WEEK_END_DATE }}</h1>
+    <br>
+    
+    <form action="{{ url_for('finalizeWeek') }}" method="post" id="finalizeForm">
+      <input type="submit" value="Click to Finalize">
+    </form>
+    <p><a href="{{ url_for('app_index') }}">Home</a></p>
   </div>
 </body>
 </html>
+
