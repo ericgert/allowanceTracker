@@ -63,7 +63,7 @@ def finalizeWeek():
         #prepare the update and insert statements and run them to finalize the week and initialize the next
         update_sql = """
         update weekends set current_record_ind = 'N' 
-        where week_end_date = {});
+        where week_end_date = {};
         update weekends set current_record_ind = 'Y'
         where week_end_date = {};
         """.format(cur_date_str, next_date_str)
