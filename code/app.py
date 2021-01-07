@@ -32,7 +32,7 @@ def modifyValues():
     if request.method == 'POST':
         child = request.values.get('childSelect')
         amount = request.values.get('modifyAmount')
-        message = 'You have successfully modified the allowance for {} by {}'.format(child, amount)
+        message = 'You have successfully modified the allowance for {} by ${}'.format(child, amount)
         return redirect(url_for('message', message=message))
 
 
