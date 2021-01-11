@@ -15,9 +15,24 @@
 </head>
 <body>
   <div class="content">
+    <h1>Allowance Tracker - Select the date and child for which you would like to see prior activity</h1>
+    <label for="dateSelect">Select Child:</label>
+    <select name="dateSelect" form="priorForm">
+      {% for i in range(date_len) %}
+        <option value="{{ i }}">{{ date_list[i] }}</option>
+      {% endfor %}
+    </select>
+    <label for="childSelect">Select Child:</label>
+    <select name="childSelect" form="priorForm">
+      <option value="ALL">All</option>
+      <option value="MICAH">Micah</option>
+      <option value="CAMERON">Cameron</option>
+      <option value="ALEX">Alex</option>
+    </select>
     <form action="{{ url_for('priorActivity') }}" method="post" id="priorForm">
       <input type="submit" value="Submit">
     </form>
+    <p><a href="{{ url_for('app_index') }}">Home</a></p>
   </div>
 </body>
 </html>
