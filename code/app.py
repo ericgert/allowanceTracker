@@ -100,8 +100,8 @@ def priorActivity():
     #if the request is a post request grab the options and return the activity for that date and child
     if request.method == 'POST':
         # #get values from the form
-        child = "'"+request.values.get('childSelect')+"'"
-        cur_date = "'"+request.values.get('dateSelect')+"'"
+        child = request.values.get('childSelect')
+        cur_date = request.values.get('dateSelect')
 
         return redirect(url_for('showActivity', child = child, date = cur_date))
 
@@ -147,7 +147,7 @@ def showActivity():
     # """.format(sql_where)
     # #execute the statement and check teh results
     # act_rows = allow_conn.execute_query(act_sql)
-    # parse results into the
+    # #parse results into the
     activity_list = [('date', 'kid', 'amount', 'reason'), ('date1', 'kid1', 'amount1', 'reason1')]
     activity_len = len(activity_list)
     return render_template('showActivity.html', cur_date = cur_date, cur_child = cur_child, activity = activity_list, len = activity_len)
