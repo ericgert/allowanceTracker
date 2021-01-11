@@ -137,7 +137,7 @@ def showActivity():
     if cur_child == 'ALL':
         sql_where = "\n WHERE week_end_date = '{}'".format(cur_date)
     else:
-        sql_where = "\n WHERE week_end_date = '{}' and child_name = '{}'".format(cur_date, child)
+        sql_where = "\n WHERE week_end_date = '{}' and child_name = '{}'".format(cur_date, cur_child)
     #prepare the query to grab the activity
     act_sql = """
     select week_end_date, child_name, modified_amount, modify_reason 
