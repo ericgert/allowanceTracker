@@ -103,8 +103,7 @@ def priorActivity():
         child = "'"+request.values.get('childSelect')+"'"
         cur_date = "'"+request.values.get('dateSelect')+"'"
 
-        message = '{"date":"{}","child":"{}"}'.format(cur_date, child)
-        return redirect(url_for('showActivity', message=message))
+        return redirect(url_for('showActivity', child = child, date = cur_date))
 
     #get list of prior dates
     get_date_list_sql = """
@@ -131,10 +130,9 @@ def message():
 
 @app.route('/showActivity')
 def showActivity():
-    str_message = request.args['message']
-    msg_dict = json.loads(str_message)
-    cur_date = msg_dict['date']
-    cur_child = msg_dict['child']
+    cur_date = request.args['date']
+    cur_child = request.args['child']
+    
     # #determine if we need all children or just a specific kid
     # if cur_child == 'ALL':
     #     sql_where = "\n WHERE week_end_date = '{}'".format(cur_date)
