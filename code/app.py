@@ -39,7 +39,7 @@ def modifyValues():
         cur_date = "'"+allow_utils.get_current_weekend()+"'"
         #prepare the insert statement to update the amount
         sql = """
-        insert into amount_details values({}, {}, {}, {})
+        insert into amount_details values({}, {}, {}, {}, current_timestamp)
         """.format(cur_date, child, amount, reason)
         #execute the statement and check teh results
         result = allow_conn.execute_statement(sql)
@@ -73,8 +73,8 @@ def finalizeWeek():
         if result['code'] == 0:
             #initialize the new week
             init_sql = """
-            insert into amount_details (week_end_date, child_name, modified_amount, modify_reason)
-            (select w.week_end_date, da.child_name, da.amount, 'Starting Amount' as modify_reason
+            insert into amount_details (week_end_date, child_name, modified_amount, modify_reason, rec_ts)
+            (select w.week_end_date, da.child_name, da.amount, 'Starting Amount' as modify_reason, current_timestamp as rec_ts
             from weekends w
             , def_allow da
             where w.current_record_ind = 'Y')
@@ -108,7 +108,7 @@ def priorActivity():
     #get list of prior dates
     get_date_list_sql = """
     select week_end_date from weekends
-    where week_end_date < (
+    where week_end_date <= (
         Select week_end_date from weekends where current_record_ind = 'Y'
         )
     order by week_end_date desc
@@ -143,7 +143,7 @@ def showActivity():
     select week_end_date, child_name, modified_amount, modify_reason 
     from amount_details 
     {} 
-    order by child_name
+    order by child_name, rec_ts
     """.format(sql_where)
     #execute the statement and check teh results
     activity_list = allow_conn.execute_query(act_sql)
