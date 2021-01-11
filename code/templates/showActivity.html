@@ -31,6 +31,22 @@
 <body>
   <div class="content">
     <h1>Allowance Tracker - Showing activity for {{ cur_child }} for the week ending: {{ cur_date }}</h1>
+    <p>Summary</p>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Child</th>
+        <th> Total Amount</th>
+      </tr>
+      {% for row in range(agg_len) %}
+        <tr>
+          {% for col in range(3) %}
+            <td> {{ summary[row][col] }}</td>  
+          {% endfor %}
+        </tr>
+    </table>
+    <br>
+    <p>Amount Details</p>
     <table>
       <tr>
         <th>Date</th>

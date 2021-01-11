@@ -138,18 +138,30 @@ def showActivity():
         sql_where = "\n WHERE week_end_date = '{}'".format(cur_date)
     else:
         sql_where = "\n WHERE week_end_date = '{}' and child_name = '{}'".format(cur_date, cur_child)
-    #prepare the query to grab the activity
+    #prepare the queries to grab the activity and summary for the selected week and child
+    sum_sql = """
+    select week_end_date, child_name, sum(modified_amount) as summary_amount 
+    from amount_details 
+    {} 
+    group by week_end_date, child_name
+    order by child_name
+    """.format(sql_where)
+
     act_sql = """
     select week_end_date, child_name, modified_amount, modify_reason 
     from amount_details 
     {} 
     order by child_name, rec_ts
     """.format(sql_where)
-    #execute the statement and check teh results
+    #execute the queries
     activity_list = allow_conn.execute_query(act_sql)
+    summary_list = allow_conn.execute_query(sum_sql)
     #parse results into the list of tuples
     activity_len = len(activity_list)
-    return render_template('showActivity.html', cur_date = cur_date, cur_child = cur_child, activity = activity_list, len = activity_len)
+    summary_len = len(summary_list)
+    return render_template('showActivity.html', cur_date = cur_date
+                            , cur_child = cur_child, activity = activity_list, len = activity_len
+                            , agg_len = summary_list, summary = summary_list)
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
