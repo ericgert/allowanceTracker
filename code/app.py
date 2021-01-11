@@ -133,22 +133,21 @@ def showActivity():
     cur_date = request.args['date']
     cur_child = request.args['child']
     
-    # #determine if we need all children or just a specific kid
-    # if cur_child == 'ALL':
-    #     sql_where = "\n WHERE week_end_date = '{}'".format(cur_date)
-    # else:
-    #     sql_where = "\n WHERE week_end_date = '{}' and child_name = '{}'".format(cur_date, child)
-    # #prepare the query to grab the activity
-    # act_sql = """
-    # select week_end_date, child_name, modified_amount, modify_reason 
-    # from amount_details 
-    # {} 
-    # order by child_name
-    # """.format(sql_where)
-    # #execute the statement and check teh results
-    # act_rows = allow_conn.execute_query(act_sql)
-    # #parse results into the
-    activity_list = [('date', 'kid', 'amount', 'reason'), ('date1', 'kid1', 'amount1', 'reason1')]
+    #determine if we need all children or just a specific kid
+    if cur_child == 'ALL':
+        sql_where = "\n WHERE week_end_date = '{}'".format(cur_date)
+    else:
+        sql_where = "\n WHERE week_end_date = '{}' and child_name = '{}'".format(cur_date, child)
+    #prepare the query to grab the activity
+    act_sql = """
+    select week_end_date, child_name, modified_amount, modify_reason 
+    from amount_details 
+    {} 
+    order by child_name
+    """.format(sql_where)
+    #execute the statement and check teh results
+    activity_list = allow_conn.execute_query(act_sql)
+    #parse results into the list of tuples
     activity_len = len(activity_list)
     return render_template('showActivity.html', cur_date = cur_date, cur_child = cur_child, activity = activity_list, len = activity_len)
 
