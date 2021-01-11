@@ -161,7 +161,7 @@ def showActivity():
     summary_len = len(summary_list)
     return render_template('showActivity.html', cur_date = cur_date
                             , cur_child = cur_child, activity = activity_list, len = activity_len
-                            , agg_len = summary_list, summary = summary_list)
+                            , agg_len = summary_len, summary = summary_list)
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
